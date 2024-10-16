@@ -1,7 +1,7 @@
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
   version         = "17.24.0"
-  cluster_name    = local.cluster_name
+  cluster_name    = var.cluster_name
   cluster_version = "1.29"
   subnets         = data.aws_subnets.vpc_subnets.ids
 
@@ -22,7 +22,7 @@ module "eks" {
       additional_userdata           = "echo foo bar"
       asg_desired_capacity          = 2
       additional_security_group_ids = [aws_security_group.worker_group_mgmt_one.id]
-      public_ip = true
+      public_ip                     = true
     },
     {
       name                          = "worker-group-2"
@@ -30,7 +30,7 @@ module "eks" {
       additional_userdata           = "echo foo bar"
       additional_security_group_ids = [aws_security_group.worker_group_mgmt_two.id]
       asg_desired_capacity          = 1
-      public_ip = true
+      public_ip                     = true
     },
   ]
 }
