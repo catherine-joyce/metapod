@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-kubernetes
+spec:
+  selector:
+    app: hello-kubernetes
+  ports:
+    - name: http
+      protocol: TCP 
+      port: 31907
+      targetPort: 8080
+  clusterIP: 10.100.245.151
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - ip: 192.0.2.127
